@@ -66,3 +66,23 @@ const express = require('express');
 const app = express();
 
 module.exports = app;
+
+const sgMail = require("@sendgrid/mail");
+require("dotenv").config();
+
+const {SENDGRID_API_KEY} = process.env;
+
+sgMail.setApiKey(SENDGRID_API_KEY);
+
+const email = {
+    to: "tikij39166@cyclesat.com",
+    from: "burduzhad@gmail.com",
+    subject: "Нова заявка з сайту",
+    html: "<p>З сайту прийшла заявка!</p>",
+};
+
+sgMail.send(email)
+    .then(() => console.log("Email send success"))
+    .catch(error => console.log(error.message))
+
+
